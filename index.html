@@ -1,0 +1,140 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<title>Spike Jumper</title>
+
+	<link rel="shortcut icon" href="assets/images/bird.png" type="image/png">
+	<link rel="stylesheet preload" as="font" href="assets/fonts/NewsCrewJNL.ttf" type="font/ttf" crossorigin />
+
+	<script src="lib/phaser.min.js"></script>
+	<script src="src/components/UserComponent.js"></script>
+	<script src="src/components/PushOnClick.js"></script>
+	<script src="src/components/PreloadText.js"></script>
+	<script src="src/scenes/Preload.js"></script>
+	<script src="src/scenes/Level.js"></script>
+	<script src="src/main.js"></script>
+
+	<style>
+		@font-face {
+			font-family: 'NewsCrewJNL';
+			src: url('assets/fonts/NewsCrewJNL.ttf');
+		}
+
+		#rotateDevice {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #232323;
+			color: #fff;
+			text-align: center;
+			line-height: 2;
+			font-size: 24px;
+			z-index: 9999;
+		}
+
+		.rotate-details {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			line-height: 35px;
+			gap: 25px;
+			font-size: 20px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.rotate-details img {
+			width: 75px;
+			height: 75px;
+			animation: rotateImage infinite 2s;
+			transform: rotate(-45deg);
+			margin-bottom: 15px;
+		}
+
+		@keyframes rotateImage {
+			0% {
+				transform: rotate(-45deg);
+			}
+
+			50% {
+				transform: rotate(45deg);
+			}
+
+			100% {
+				transform: rotate(-45deg);
+			}
+		}
+
+		@media screen and (orientation: portrait) {
+			#game-division {
+				display: none;
+			}
+
+			#rotateDevice {
+				display: block;
+			}
+		}
+
+		body {
+			background-image: url('assets/images/bg.png');
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		canvas {
+			max-height: 100%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			margin: 0 !important;
+		}
+
+		#game-division canvas {
+			max-height: calc(var(--vh, 1vh) * 100);
+		}
+
+		:root {
+			--vh: 1vh;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="rotateDevice">
+		<div class="rotate-details">
+			<img src="assets/images/rotation.png" alt="">
+			<div>Please Rotate Your Device to Landscape Mode</div>
+		</div>
+	</div>
+	<div id="game-division"></div>
+	<script>
+		window.addEventListener('orientationchange', function () {
+			var orientation = window.orientation;
+			if (orientation === 0 || orientation === 180) {
+				// Portrait mode
+				document.getElementById("game-division").style.display = "none";
+				document.getElementById("rotateDevice").style.display = "block";
+			} else if (orientation === 90 || orientation === -90) {
+				// Landscape mode
+				document.getElementById("game-division").style.display = "block";
+				document.getElementById("rotateDevice").style.display = "none";
+			}
+		});
+	</script>
+</body>
+
+</html>

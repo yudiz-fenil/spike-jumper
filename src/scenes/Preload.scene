@@ -1,0 +1,150 @@
+{
+    "id": "04331fb6-ed91-4d74-b6e9-4bfe0fcfb457",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadMethodName": "editorPreload",
+        "preloadPackFiles": [
+            "starter-template-basic-typescript/assets/asset-pack.json"
+        ],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Preload",
+        "borderWidth": 1920,
+        "borderHeight": 1080
+    },
+    "displayList": [
+        {
+            "type": "Text",
+            "id": "2ce42443-5227-4c9b-b498-e81f9a21cde3",
+            "label": "progress",
+            "scope": "CLASS",
+            "components": [
+                "PreloadText"
+            ],
+            "x": 960,
+            "y": 540,
+            "originX": 0.5,
+            "originY": 0.5,
+            "visible": false,
+            "text": "0%",
+            "fontFamily": "NewsCrewJNL",
+            "fontSize": "100px",
+            "color": "#000"
+        },
+        {
+            "type": "Image",
+            "id": "ee0f17ed-8c32-4c13-983c-89cb71dc710f",
+            "label": "wall_2",
+            "components": [],
+            "texture": {
+                "key": "wall-1"
+            },
+            "x": 1370,
+            "y": 516,
+            "flipX": true
+        },
+        {
+            "type": "Image",
+            "id": "3d7e7be7-1986-4d1b-a7ef-7a9aad64f34c",
+            "label": "wall_1",
+            "components": [],
+            "texture": {
+                "key": "wall-1"
+            },
+            "x": 550,
+            "y": 516
+        },
+        {
+            "type": "Image",
+            "id": "701aa235-00e0-45bf-ae2e-f93525cb34ef",
+            "label": "surface_1",
+            "components": [],
+            "texture": {
+                "key": "surface"
+            },
+            "x": 1268,
+            "y": 1024,
+            "originX": 0
+        },
+        {
+            "type": "Image",
+            "id": "a6ba2a87-edab-4d85-9f51-9cd89559cded",
+            "label": "surface",
+            "components": [],
+            "texture": {
+                "key": "surface"
+            },
+            "x": 651,
+            "y": 1024,
+            "originX": 1
+        },
+        {
+            "type": "Image",
+            "id": "7a3b7d0f-08b3-4995-b77d-d0277ba31082",
+            "label": "outerBar",
+            "scope": "CLASS",
+            "components": [],
+            "texture": {
+                "key": "outerBar"
+            },
+            "x": 960,
+            "y": 774,
+            "scaleX": 0.6,
+            "scaleY": 0.6
+        },
+        {
+            "type": "Image",
+            "id": "139db8a6-f632-4a52-b7d9-7510906d34da",
+            "label": "innerBar",
+            "scope": "CLASS",
+            "components": [],
+            "texture": {
+                "key": "innerBar"
+            },
+            "x": 776.3999927043915,
+            "y": 774,
+            "scaleX": 0.6,
+            "scaleY": 0.6,
+            "originX": 0
+        },
+        {
+            "type": "Image",
+            "id": "3265819c-375e-4038-bc3f-99e1941e83eb",
+            "label": "logo",
+            "components": [],
+            "texture": {
+                "key": "logo"
+            },
+            "x": 960,
+            "y": 227,
+            "scaleX": 0.6,
+            "scaleY": 0.6
+        },
+        {
+            "type": "Text",
+            "id": "cb31821a-24b2-4362-b8e9-e2c422e99a46",
+            "label": "text_1",
+            "components": [],
+            "x": 960,
+            "y": 738,
+            "originX": 0.5,
+            "originY": 0.5,
+            "alpha": 0.5,
+            "alphaTopLeft": 0.5,
+            "alphaTopRight": 0.5,
+            "alphaBottomLeft": 0.5,
+            "alphaBottomRight": 0.5,
+            "text": "LOADNIG...",
+            "align": "center",
+            "fontFamily": "NewsCrewJNL",
+            "fontSize": "24px",
+            "color": "#697F8A"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}
