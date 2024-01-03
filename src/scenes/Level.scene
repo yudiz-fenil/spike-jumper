@@ -10,6 +10,17 @@
     },
     "displayList": [
         {
+            "type": "Image",
+            "id": "fbd5224a-7579-4e56-b5e6-d45eb6ba457d",
+            "label": "bg",
+            "components": [],
+            "texture": {
+                "key": "bg"
+            },
+            "x": 960,
+            "y": 540
+        },
+        {
             "type": "Container",
             "id": "23e77396-e2d0-4b98-affd-5af22535fcdc",
             "label": "container_spikes",

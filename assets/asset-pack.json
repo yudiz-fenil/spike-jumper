@@ -20,14 +20,29 @@
                 "key": "bird_1"
             },
             {
+                "url": "assets/animations/bird.json",
+                "type": "animation",
+                "key": "bird_2"
+            },
+            {
+                "url": "assets/sprites/bird1.png",
+                "type": "image",
+                "key": "bird1"
+            },
+            {
+                "url": "assets/sprites/bird2.png",
+                "type": "image",
+                "key": "bird2"
+            },
+            {
+                "url": "assets/sprites/bird3.png",
+                "type": "image",
+                "key": "bird3"
+            },
+            {
                 "url": "assets/images/btn_play.png",
                 "type": "image",
                 "key": "btn_play"
-            },
-            {
-                "url": "assets/images/circle.png",
-                "type": "image",
-                "key": "circle"
             },
             {
                 "url": "assets/images/particles/particle.png",
@@ -43,6 +58,11 @@
                 "url": "assets/images/spike-2.png",
                 "type": "image",
                 "key": "spike-2"
+            },
+            {
+                "url": "assets/images/spike-3.png",
+                "type": "image",
+                "key": "spike-3"
             },
             {
                 "url": "assets/images/wall.png",

@@ -2,6 +2,8 @@ const gameOptions = {
 	triangleBase: 70,
 	birdSpeed: 7,
 	jumpForce: 10,
+	initialSpeed: 7,
+	increase: 0.1,
 	bestScoreKey: 'spikesBestScore',
 }
 window.addEventListener('load', function () {

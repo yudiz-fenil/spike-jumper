@@ -13,6 +13,17 @@
     },
     "displayList": [
         {
+            "type": "Image",
+            "id": "8db689d5-2aea-4143-ae7f-34617151b071",
+            "label": "bg",
+            "components": [],
+            "texture": {
+                "key": "bg"
+            },
+            "x": 960,
+            "y": 540
+        },
+        {
             "type": "Text",
             "id": "2ce42443-5227-4c9b-b498-e81f9a21cde3",
             "label": "progress",

@@ -22,6 +22,9 @@ class Preload extends Phaser.Scene {
 	/** @returns {void} */
 	editorCreate() {
 
+		// bg
+		this.add.image(960, 540, "bg");
+
 		// progress
 		const progress = this.add.text(960, 540, "", {});
 		progress.setOrigin(0.5, 0.5);
@@ -101,9 +104,9 @@ class Preload extends Phaser.Scene {
 		this.isGameLoaded1 = false;
 		this.isGameLoaded2 = false;
 
-		// this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Level"));
+		this.load.on(Phaser.Loader.Events.COMPLETE, () => this.scene.start("Level"));
 
-		this.fakeLoading();
+		// this.fakeLoading();
 	}
 	fakeLoading() {
 		this.load.on(Phaser.Loader.Events.COMPLETE, (p) => {

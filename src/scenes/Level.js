@@ -14,6 +14,9 @@ class Level extends Phaser.Scene {
 	/** @returns {void} */
 	editorCreate() {
 
+		// bg
+		this.add.image(960, 540, "bg");
+
 		// container_spikes
 		const container_spikes = this.add.container(0, 0);
 
@@ -138,29 +141,6 @@ class Level extends Phaser.Scene {
 	logo;
 
 	/* START-USER-CODE */
-	setColors = () => {
-		this.nCurrentColorIndex++;
-		if (this.nCurrentColorIndex >= this.aBGColor.length) {
-			this.nCurrentColorIndex = 0;
-		}
-		document.body.style.backgroundColor = this.aBGColor[this.nCurrentColorIndex];
-		this.gameWalls.forEach(wall => {
-			wall.setTint(this.aSpikeColor[this.nCurrentColorIndex]);
-		})
-		this.topSpikes.forEach(spike => {
-			spike.setTint(this.aSpikeColor[this.nCurrentColorIndex]);
-		});
-		this.bottomSpikes.forEach(spike => {
-			spike.setTint(this.aSpikeColor[this.nCurrentColorIndex]);
-		});
-		this.leftSpikes.forEach(spike => {
-			spike.setTint(this.aSpikeColor[this.nCurrentColorIndex]);
-		});
-		this.rightSpikes.forEach(spike => {
-			spike.setTint(this.aSpikeColor[this.nCurrentColorIndex]);
-		});
-		this.txt_score.setColor(this.aBGColor[this.nCurrentColorIndex]);
-	}
 	birdParticles = () => {
 		const particle = this.add.particles("particle");
 		const emitter = particle.createEmitter({
@@ -229,7 +209,6 @@ class Level extends Phaser.Scene {
 		})
 	}
 	setScoreUI = () => {
-		// const score_bg = this.add.image(this.game.config.width / 2, this.game.config.height / 2, "circle");
 		this.txt_score = this.add.text(this.game.config.width / 2, this.game.config.height / 2, "00", {
 			fontSize: 180,
 			fontFamily: "NewsCrewJNL",
@@ -263,7 +242,8 @@ class Level extends Phaser.Scene {
 		});
 
 		this.nBestScore = localStorage.getItem(gameOptions.bestScoreKey) || 0;
-		const txt_best_score = this.add.text(center.x, center.y + center.y / 1.3, "BEST SCORE : " + this.nBestScore, {
+		const formattedBestScore = this.nBestScore < 10 ? '0' + this.nBestScore : this.nBestScore;
+		const txt_best_score = this.add.text(center.x, center.y + center.y / 1.3, "BEST SCORE : " + formattedBestScore, {
 			"color": "#697F8A",
 			"fontFamily": "NewsCrewJNL",
 			"fontSize": "40px",
@@ -305,13 +285,28 @@ class Level extends Phaser.Scene {
 		if (this.nScore > this.nBestScore) {
 			localStorage.setItem(gameOptions.bestScoreKey, this.nScore);
 		}
-		this.isGameOver = true;
 		this.bird.emitter.remove();
+		if (!this.isGameOver) {
+			const particles = this.add.particles('particle');
+			const emitter = particles.createEmitter({
+				speed: 2000,
+				scale: { start: 0.2, end: 0.3 },
+				alpha: { start: 1, end: 0 },
+				lifespan: 3000,
+				frequency: 10,
+			});
+			emitter.explode(35, this.bird.x, this.bird.y);
+			setTimeout(() => {
+				emitter.remove();
+			}, 500);
+		}
+		this.isGameOver = true;
 		this.tweens.add({
 			targets: this.bird,
 			alpha: 0,
 			duration: 500,
 			onComplete: () => {
+				gameOptions.birdSpeed = gameOptions.initialSpeed;
 				this.scene.restart("Level");
 			}
 		})
@@ -319,16 +314,13 @@ class Level extends Phaser.Scene {
 	updateScore = () => {
 		this.nScore++;
 		this.txt_score.setText(this.nScore < 10 ? "0" + this.nScore : this.nScore);
-		// if (this.nScore % 3 == 0) this.setColors();
+		gameOptions.birdSpeed += gameOptions.increase;
 	}
 	create() {
 		this.editorCreate();
-		this.aSpikeColor = [0x697F8A, 0x898C89, 0x8B786C, 0x73708A, 0x7D896B, 0xFDFFFD, 0x42B7EF, 0x83DB00];
-		this.aBGColor = ["#DFECEF", "#EBEDEB", "#F5ECE1", "#E8E6F5", "#E8F1DF", "#7A7D7A", "#236C8F", "#267F00"];
 		this.setScoreUI();
 		this.setHomeUI();
 		const spikeDistance = gameOptions.triangleBase * 1.25;
-		this.nCurrentColorIndex = -1;
 		this.isGameStarted = false;
 		this.isGameOver = false;
 		this.nScore = 0;
@@ -339,8 +331,8 @@ class Level extends Phaser.Scene {
 		this.gameWalls = [];
 		this.nLeftWall = 634;
 		this.nRiightWall = 1286;
-		this.nLeftSpikes = 605;
-		this.nRightSpikes = 1315;
+		this.nLeftSpikes = 600 - 3;
+		this.nRightSpikes = 1320 + 3;
 
 		this.btn_play.setInteractive()
 			.on("pointerover", () => {
@@ -351,25 +343,23 @@ class Level extends Phaser.Scene {
 
 			});
 
-
 		for (let i = 0; i < 11; i++) {
 			if (i < 7) {
-				this.topSpikes.push(this.addSpike(700 + i * spikeDistance, (gameOptions.triangleBase / 2) - 34));
-				this.bottomSpikes.push(this.addSpike(700 + i * spikeDistance, (this.game.config.height - gameOptions.triangleBase / 2) + 34));
+				this.topSpikes.push(this.addSpike(700 + i * spikeDistance, (gameOptions.triangleBase / 2) - 45, true));
+				this.bottomSpikes.push(this.addSpike((700 + i * spikeDistance), (this.game.config.height - gameOptions.triangleBase / 2) + 45, true));
 			}
-			this.leftSpikes.push(this.addSpike(this.nLeftSpikes, gameOptions.triangleBase * 1.5 + i * spikeDistance));
-			this.rightSpikes.push(this.addSpike(this.nRightSpikes, gameOptions.triangleBase * 1.5 + i * spikeDistance));
+			this.leftSpikes.push(this.addSpike(this.nLeftSpikes, gameOptions.triangleBase * 1.5 + i * spikeDistance, false));
+			this.rightSpikes.push(this.addSpike(this.nRightSpikes, gameOptions.triangleBase * 1.5 + i * spikeDistance, false));
 		}
 		this.addWall(this.nLeftWall, this.game.config.height / 2, gameOptions.triangleBase / 2, this.game.config.height, "leftwall", "wall-1");
 		this.addWall(this.nRiightWall, this.game.config.height / 2, gameOptions.triangleBase / 2, this.game.config.height, "rightwall");
-
-		// this.setColors();
 
 		const ballTexture = this.textures.get("bird");
 		this.bird = this.matter.add.sprite(this.game.config.width / 2, (this.game.config.height / 2) - 30, "bird", 1, {
 			label: "ball",
 			shape: this.cache.json.get('bird_1').bird
 		});
+		this.bird.play("fly", true);
 		this.bird.setDepth(1);
 		this.birdTween = this.tweens.add({
 			targets: this.bird,
@@ -413,11 +403,12 @@ class Level extends Phaser.Scene {
 		this.gameWalls.push(wall);
 		wall.setScale(w / wallTexture.source[0].width, h / wallTexture.source[0].width);
 	}
-	addSpike = (x, y) => {
-		const spikeTexture = this.textures.get("spike");
-		const squareSize = gameOptions.triangleBase / Math.sqrt(1.5);
+	addSpike = (x, y, upDown) => {
+		const texture = upDown ? "spike-3" : "spike";
+		const spikeTexture = this.textures.get(texture);
+		const squareSize = gameOptions.triangleBase;
 		const squareScale = squareSize / spikeTexture.source[0].width;
-		const spike = this.matter.add.image(x, y, "spike", null, {
+		const spike = this.matter.add.image(x, y, texture, null, {
 			isStatic: true,
 			label: "spike"
 		});

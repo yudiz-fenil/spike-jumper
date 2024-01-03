@@ -2,6 +2,11 @@
     "section1": {
         "files": [
             {
+                "url": "assets/images/bg.png",
+                "type": "image",
+                "key": "bg"
+            },
+            {
                 "url": "assets/images/innerBar.png",
                 "type": "image",
                 "key": "innerBar"
@@ -25,11 +30,6 @@
                 "url": "assets/images/wall-1.png",
                 "type": "image",
                 "key": "wall-1"
-            },
-            {
-                "url": "assets/images/wall-2.png",
-                "type": "image",
-                "key": "wall-2"
             }
         ]
     },
