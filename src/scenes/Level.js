@@ -331,8 +331,8 @@ class Level extends Phaser.Scene {
 		this.gameWalls = [];
 		this.nLeftWall = 634;
 		this.nRiightWall = 1286;
-		this.nLeftSpikes = 600 - 3;
-		this.nRightSpikes = 1320 + 3;
+		this.nLeftSpikes = 600 - 32;
+		this.nRightSpikes = 1320 + 32;
 
 		this.btn_play.setInteractive()
 			.on("pointerover", () => {
@@ -345,8 +345,8 @@ class Level extends Phaser.Scene {
 
 		for (let i = 0; i < 11; i++) {
 			if (i < 7) {
-				this.topSpikes.push(this.addSpike(700 + i * spikeDistance, (gameOptions.triangleBase / 2) - 45, true));
-				this.bottomSpikes.push(this.addSpike((700 + i * spikeDistance), (this.game.config.height - gameOptions.triangleBase / 2) + 45, true));
+				this.topSpikes.push(this.addSpike(700 + i * spikeDistance, (gameOptions.triangleBase / 2) - 55, true));
+				this.bottomSpikes.push(this.addSpike((700 + i * spikeDistance), (this.game.config.height - gameOptions.triangleBase / 2) + 55, true));
 			}
 			this.leftSpikes.push(this.addSpike(this.nLeftSpikes, gameOptions.triangleBase * 1.5 + i * spikeDistance, false));
 			this.rightSpikes.push(this.addSpike(this.nRightSpikes, gameOptions.triangleBase * 1.5 + i * spikeDistance, false));
@@ -407,13 +407,15 @@ class Level extends Phaser.Scene {
 		const texture = upDown ? "spike-3" : "spike";
 		const spikeTexture = this.textures.get(texture);
 		const squareSize = gameOptions.triangleBase;
-		const squareScale = squareSize / spikeTexture.source[0].width;
+		const squareScale = (squareSize / spikeTexture.source[0].width) + 0.20;
 		const spike = this.matter.add.image(x, y, texture, null, {
 			isStatic: true,
-			label: "spike"
+			label: "spike",
 		});
 		this.container_spikes.add(spike);
+		console.log('squareScale', squareScale)
 		spike.setScale(squareScale);
+		// spike.setSize(squareScale);
 		spike.rotation = Math.PI / 4;
 		return spike;
 	}
@@ -431,10 +433,10 @@ class Level extends Phaser.Scene {
 		for (let i = 0; i < numberOfSpikes; i++) {
 			let randomSpike = Phaser.Utils.Array.RemoveRandomElement(randomPositions);
 			if (isRight) {
-				this.rightSpikes[randomSpike].x = this.nRightSpikes - gameOptions.triangleBase / 1.7;
+				this.rightSpikes[randomSpike].x = this.nRightSpikes - gameOptions.triangleBase / 1.25;
 			}
 			else {
-				this.leftSpikes[randomSpike].x = this.nLeftSpikes + gameOptions.triangleBase / 1.7;
+				this.leftSpikes[randomSpike].x = this.nLeftSpikes + gameOptions.triangleBase / 1.25;
 			}
 		}
 	}
